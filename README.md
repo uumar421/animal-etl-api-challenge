@@ -13,7 +13,7 @@ This script fetches all animals, transforms the data, and posts it in batches of
 
 ## Technologies Used
 
-- Python 3.10+
+- Python 3.10
 - Requests
 - Docker (for the provided API server)
 
@@ -68,7 +68,7 @@ You should see logs showing:
 - API requests and pagination
 - Uploads to /animals/v1/home
 
-### Transformations Applied
+## Transformations Applied
 
 Each animal record is transformed before being uploaded:
 
@@ -78,7 +78,7 @@ Each animal record is transformed before being uploaded:
 - **`born_at`**: Converted from epoch milliseconds to an ISO 8601 UTC timestamp.  
   **Example:** 1654571943094 → "2022-06-06T12:39:03Z"
 
-### Error Handling
+## Error Handling
 
 The ETL pipeline includes retry logic with exponential backoff to handle:
 - Server delays (5–15s pauses)
