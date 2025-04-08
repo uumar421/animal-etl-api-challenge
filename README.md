@@ -81,5 +81,5 @@ Each animal record is transformed before being uploaded:
 ## Error Handling
 
 The ETL pipeline includes retry logic with exponential backoff to handle:
-- Server delays (5–15s pauses)
+- Server delays (2–10s pauses)
 - Intermittent errors (HTTP 500, 502, 503, 504)
