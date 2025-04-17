@@ -1,4 +1,3 @@
-import pytest
 from transform import transform_animal
 
 

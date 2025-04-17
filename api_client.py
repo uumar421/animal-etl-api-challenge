@@ -11,8 +11,8 @@ from tenacity import (
 BASE_URL = "http://localhost:3123"
 
 """
-Custom exception handling to flag only retry-worthy HTTP errors and avoid retrying 
-on other issues like 404 or bad input.
+Custom exception handling to flag only retry-worthy HTTP errors and avoid
+retrying on other issues like 404 or bad input.
 """
 RETRY_STATUS_CODES = {500, 502, 503, 504}
 
@@ -54,7 +54,9 @@ def get_animals_page(page: int) -> Dict[str, Any]:
 @retry(
     wait=wait_random_exponential(multiplier=1, max=20),
     stop=stop_after_attempt(5),
-    retry=retry_if_exception_type((TransientAPIError, requests.exceptions.ReadTimeout)),
+    retry=retry_if_exception_type(
+        (TransientAPIError, requests.exceptions.ReadTimeout)
+    ),
     reraise=True,
 )
 def get_animal_detail(animal_id: str) -> Dict[str, Any]:
