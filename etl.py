@@ -8,6 +8,7 @@ from transform import transform_animal
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 def run_etl() -> None:
     logger.info("Starting ETL process...")
     page = 1
@@ -21,10 +22,13 @@ def run_etl() -> None:
 
         if not items:
             break
-        
+
         # parrallelism using thread pool to extract data concurrently
         with ThreadPoolExecutor(max_workers=5) as executor:
-            future_to_id = {executor.submit(get_animal_detail, item["id"]): item["id"] for item in items}
+            future_to_id = {
+                executor.submit(get_animal_detail, item["id"]): item["id"]
+                for item in items
+            }
             for future in as_completed(future_to_id):
                 try:
                     detail = future.result()
@@ -37,7 +41,9 @@ def run_etl() -> None:
                         post_animals_home(all_transformed[:100])
                         all_transformed = all_transformed[100:]
                 except Exception as e:
-                    logger.exception(f"Failed to process animal {future_to_id[future]}: {e}")
+                    logger.exception(
+                        f"Failed to process animal {future_to_id[future]}: {e}"
+                    )
 
         if page >= total_pages:
             break
