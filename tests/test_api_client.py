@@ -10,10 +10,10 @@ def test_retry_on_failure():
         response=Mock(status_code=500)
     )
 
-    with patch("api_client.requests.get", return_value=mock_response) as mock_get:
+    with patch("api_client.requests.get", return_value=mock_response) as mock:
         try:
             get_animal_detail("1")
         except TransientAPIError:
             pass
 
-        assert mock_get.call_count >= 2
+        assert mock.call_count >= 2
